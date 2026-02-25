@@ -25,6 +25,13 @@ application {
     mainClass = "hexlet.code.App"
 }
 
+sonar {
+    properties {
+        property("sonar.projectKey", "sheykoda-rettani_java-project-71")
+        property("sonar.organization", "sheykoda-rettani")
+    }
+}
+
 tasks.test {
     useJUnitPlatform()
 }
