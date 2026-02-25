@@ -3,7 +3,12 @@ package hexlet.code;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.Callable;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -36,11 +41,34 @@ public final class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        Map<String, Object> file1Values = parseFile(filePath1);
-        Map<String, Object> file2Values = parseFile(filePath2);
-        System.out.println(file1Values);
-        System.out.println(file2Values);
+        Map<String, Object> beforeMap = parseFile(filePath1);
+        Map<String, Object> afterMap = parseFile(filePath2);
+        List<String> resultLines = compareMaps(beforeMap, afterMap);
+        System.out.println("{\n" +
+                String.join("\n", resultLines) +
+                "\n}");
         return CommandLine.ExitCode.OK;
+    }
+
+    private static List<String> compareMaps(Map<String, Object> beforeMap, Map<String, Object> afterMap) {
+        Set<String> allKeys = new TreeSet<>(beforeMap.keySet());
+        allKeys.addAll(afterMap.keySet());
+
+        List<String> resultLines = new ArrayList<>();
+
+        for (String key : allKeys) {
+            if (!beforeMap.containsKey(key)) {
+                resultLines.add("+ " + key + ": " + afterMap.get(key));
+            } else if (!afterMap.containsKey(key)) {
+                resultLines.add("- " + key + ": " + beforeMap.get(key));
+            } else if (!Objects.equals(beforeMap.get(key), afterMap.get(key))) {
+                resultLines.add("- " + key + ": " + beforeMap.get(key));
+                resultLines.add("+ " + key + ": " + afterMap.get(key));
+            } else {
+                resultLines.add("  " + key + ": " + beforeMap.get(key));
+            }
+        }
+        return resultLines;
     }
 
     private Map<String, Object> parseFile(String filePath) throws IOException {
@@ -48,7 +76,7 @@ public final class App implements Callable<Integer> {
             byte[] contentBytes = Files.readAllBytes(Path.of(filePath)); // Читаем весь файл в байтовый массив
             return objectMapper.readValue(contentBytes, new TypeReference<>() {}); // Десериализируем контент в map
         } catch (IOException e) {
-            throw new IOException("Ошибка при чтении файла: " + filePath, e);
+            throw new IOException("Error while parsing file: " + filePath, e);
         }
     }
 }
