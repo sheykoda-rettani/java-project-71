@@ -41,6 +41,6 @@ public class DiffCheckerTest {
     }
 
     private static IntStream intRangeProvider() {
-        return IntStream.range(1, 3);
+        return IntStream.range(1, 4);
     }
 }
