@@ -7,8 +7,10 @@ import java.util.List;
 public interface Formatter {
     /**
      * Превращает результаты сравнения в отформатированную строку.
-     * @param diffResult список отличий
+     * @param diffResults список отличий
      * @return отформатированная строка
+     * @throws IllegalArgumentException если аргумент некорректен
+     * @throws IllegalStateException если состояние системы неверно
      */
-    String format(List<DiffEntry> diffResult) throws IllegalArgumentException;
+    String format(List<DiffEntry> diffResults);
 }

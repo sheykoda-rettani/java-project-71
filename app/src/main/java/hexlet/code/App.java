@@ -7,6 +7,7 @@ import java.util.concurrent.Callable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.diff.DiffEntry;
 import hexlet.code.formatter.Formatter;
+import hexlet.code.formatter.PlainFormatter;
 import hexlet.code.formatter.StylishFormatter;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
@@ -69,7 +70,8 @@ public final class App implements Callable<Integer> {
         String format = outputFormat.toLowerCase();
         Formatter formatter = switch (format) {
             case "stylish" -> new StylishFormatter();
-            default -> throw new IllegalArgumentException("Unknown format value" + format);
+            case "plain" -> new PlainFormatter();
+            default -> throw new IllegalArgumentException("Unknown format value %s".formatted(format));
         };
 
         System.out.println(formatter.format(compareResults));
