@@ -1,15 +1,19 @@
 package hexlet.code;
 
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.diff.DiffEntry;
+import hexlet.code.formatter.Formatter;
+import hexlet.code.formatter.StylishFormatter;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
-import static hexlet.code.DiffChecker.compareMaps;
 import static hexlet.code.Parser.parseFile;
+import static hexlet.code.diff.DiffChecker.compareMaps;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.",
@@ -32,6 +36,13 @@ public final class App implements Callable<Integer> {
     @Option(names = {"-V", "--version"}, versionHelp = true, description = "Print version information and exit.")
     private boolean versionInfoRequested;
 
+
+    /**
+     * Формат вывода.
+     */
+    @Option(names = {"-f", "--format"}, description = "output format [default: stylish]", defaultValue = "stylish")
+    private String outputFormat;
+
     /**
      * Путь к 1-му файлу.
      */
@@ -53,7 +64,15 @@ public final class App implements Callable<Integer> {
     public Integer call() throws Exception {
         Map<String, Object> beforeMap = parseFile(filePath1);
         Map<String, Object> afterMap = parseFile(filePath2);
-        System.out.println(compareMaps(beforeMap, afterMap));
+        List<DiffEntry> compareResults = compareMaps(beforeMap, afterMap);
+
+        String format = outputFormat.toLowerCase();
+        Formatter formatter = switch (format) {
+            case "stylish" -> new StylishFormatter();
+            default -> throw new IllegalArgumentException("Unknown format value" + format);
+        };
+
+        System.out.println(formatter.format(compareResults));
         return CommandLine.ExitCode.OK;
     }
 }

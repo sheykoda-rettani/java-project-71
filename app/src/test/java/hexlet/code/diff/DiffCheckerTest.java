@@ -1,4 +1,5 @@
-import hexlet.code.DiffChecker;
+package hexlet.code.diff;
+
 import hexlet.code.Parser;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -11,8 +12,12 @@ import java.util.stream.IntStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class DiffCheckerTest {
-    private final String RESOURCES_PATH = "src/test/resources/";
+@SuppressWarnings("checkstyle:MultipleStringLiterals")
+public final class DiffCheckerTest {
+    /**
+     * Расположение тестовых файлов.
+     */
+    private static final String RESOURCES_PATH = "src/test/resources/";
 
     @ParameterizedTest
     @MethodSource("intRangeProvider")
@@ -23,7 +28,7 @@ public class DiffCheckerTest {
         final Map<String, Object> beforeMap = Parser.parseFile(beforePath);
         final Map<String, Object> afterMap = Parser.parseFile(afterPath);
         String expectedOutput = Files.readString(Path.of(outputPath));
-        String actualOutput = DiffChecker.compareMaps(beforeMap, afterMap);
+        String actualOutput = DiffChecker.compareMapsO(beforeMap, afterMap);
         assertEquals(expectedOutput, actualOutput);
     }
 
@@ -36,11 +41,12 @@ public class DiffCheckerTest {
         final Map<String, Object> beforeMap = Parser.parseFile(beforePath);
         final Map<String, Object> afterMap = Parser.parseFile(afterPath);
         String expectedOutput = Files.readString(Path.of(outputPath));
-        String actualOutput = DiffChecker.compareMaps(beforeMap, afterMap);
+        String actualOutput = DiffChecker.compareMapsO(beforeMap, afterMap);
         assertEquals(expectedOutput, actualOutput);
     }
 
+    @SuppressWarnings("checkstyle:MagicNumber")
     private static IntStream intRangeProvider() {
-        return IntStream.range(1, 4);
+        return IntStream.rangeClosed(1, 3);
     }
 }

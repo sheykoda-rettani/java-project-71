@@ -1,5 +1,7 @@
-package hexlet.code;
+package hexlet.code.diff;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -10,7 +12,7 @@ public final class DiffChecker {
 
     }
 
-    public static String compareMaps(final Map<String, Object> beforeMap, final Map<String, Object> afterMap) {
+    public static String compareMapsO(final Map<String, Object> beforeMap, final Map<String, Object> afterMap) {
         final String added = "  + ";
         final String removed = "  - ";
         final String separator = ": ";
@@ -35,5 +37,24 @@ public final class DiffChecker {
         }
         resultBuilder.append("}");
         return resultBuilder.toString();
+    }
+
+    public static List<DiffEntry> compareMaps(final Map<String, Object> beforeMap, final Map<String, Object> afterMap) {
+        List<DiffEntry> compareResult = new ArrayList<>();
+        Set<String> allKeys = new TreeSet<>(beforeMap.keySet());
+        allKeys.addAll(afterMap.keySet());
+        for (String key : allKeys) {
+            if (!beforeMap.containsKey(key)) {
+                compareResult.add(new DiffEntry(key, null, afterMap.get(key), ActionType.ADDED));
+
+            } else if (!afterMap.containsKey(key)) {
+                compareResult.add(new DiffEntry(key, beforeMap.get(key), null, ActionType.REMOVED));
+            } else if (!Objects.equals(beforeMap.get(key), afterMap.get(key))) {
+                compareResult.add(new DiffEntry(key, beforeMap.get(key), afterMap.get(key), ActionType.CHANGED));
+            } else {
+                compareResult.add(new DiffEntry(key, beforeMap.get(key), afterMap.get(key), ActionType.UNCHANGED));
+            }
+        }
+        return compareResult;
     }
 }
