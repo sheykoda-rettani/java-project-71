@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import hexlet.code.diff.DiffEntry;
 import hexlet.code.formatter.Formatter;
+import hexlet.code.formatter.JsonFormatter;
 import hexlet.code.formatter.PlainFormatter;
 import hexlet.code.formatter.StylishFormatter;
 import picocli.CommandLine;
@@ -20,11 +20,6 @@ import static hexlet.code.diff.DiffChecker.compareMaps;
         description = "Compares two configuration files and shows a difference.",
         showDefaultValues = true)
 public final class App implements Callable<Integer> {
-    /**
-     * Для парсинга JSON файлов.
-     */
-    private final ObjectMapper objectMapper = new ObjectMapper();
-
     /**
      * Help-комманда.
      */
@@ -71,6 +66,7 @@ public final class App implements Callable<Integer> {
         Formatter formatter = switch (format) {
             case "stylish" -> new StylishFormatter();
             case "plain" -> new PlainFormatter();
+            case "json" -> new JsonFormatter();
             default -> throw new IllegalArgumentException("Unknown format value %s".formatted(format));
         };
 
