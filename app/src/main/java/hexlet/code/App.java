@@ -8,8 +8,7 @@ import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
-        description = "Compares two configuration files and shows a difference.",
-        showDefaultValues = true)
+        description = "Compares two configuration files and shows a difference.")
 public final class App implements Callable<Integer> {
     /**
      * Help-комманда.
