@@ -1,20 +1,11 @@
 package hexlet.code;
 
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.Callable;
 
-import hexlet.code.diff.DiffEntry;
-import hexlet.code.formatter.Formatter;
-import hexlet.code.formatter.JsonFormatter;
-import hexlet.code.formatter.PlainFormatter;
-import hexlet.code.formatter.StylishFormatter;
+import hexlet.code.diff.Differ;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
-
-import static hexlet.code.Parser.parseFile;
-import static hexlet.code.diff.DiffChecker.compareMaps;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "gendiff 1.0",
         description = "Compares two configuration files and shows a difference.",
@@ -58,19 +49,8 @@ public final class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        Map<String, Object> beforeMap = parseFile(filePath1);
-        Map<String, Object> afterMap = parseFile(filePath2);
-        List<DiffEntry> compareResults = compareMaps(beforeMap, afterMap);
-
-        String format = outputFormat.toLowerCase();
-        Formatter formatter = switch (format) {
-            case "stylish" -> new StylishFormatter();
-            case "plain" -> new PlainFormatter();
-            case "json" -> new JsonFormatter();
-            default -> throw new IllegalArgumentException("Unknown format value %s".formatted(format));
-        };
-
-        System.out.println(formatter.format(compareResults));
+        String diff = Differ.generateDiffString(filePath1, filePath2, outputFormat);
+        System.out.println(diff);
         return CommandLine.ExitCode.OK;
     }
 }

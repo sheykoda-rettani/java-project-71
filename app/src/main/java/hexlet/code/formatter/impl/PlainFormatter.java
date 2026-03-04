@@ -1,21 +1,22 @@
-package hexlet.code.formatter;
+package hexlet.code.formatter.impl;
 
 import hexlet.code.diff.ActionType;
 import hexlet.code.diff.DiffEntry;
+import hexlet.code.formatter.Formatter;
 
 import java.util.List;
 import java.util.Map;
 
 public final class PlainFormatter implements Formatter {
     @Override
-    public String format(final List<DiffEntry> diffResults) {
-        if (diffResults == null || diffResults.isEmpty()) {
+    public String format(final List<DiffEntry> compareResults) {
+        if (compareResults == null || compareResults.isEmpty()) {
             throw new IllegalArgumentException("Comparison result list is empty or null and cannot be formatted.");
         }
 
         StringBuilder output = new StringBuilder();
 
-        for (DiffEntry entry : diffResults) {
+        for (DiffEntry entry : compareResults) {
             String propertyName = entry.key();
             ActionType action = entry.actionType();
 
@@ -28,7 +29,7 @@ public final class PlainFormatter implements Formatter {
             }
         }
 
-        return output.toString();
+        return output.toString().trim();
     }
 
     private String buildAddedMessage(final String propertyName, final Object newValue) {
