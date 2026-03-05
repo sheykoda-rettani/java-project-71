@@ -30,7 +30,7 @@ public final class Differ {
         return formatter.format(compareResults);
     }
 
-    private static List<DiffEntry> compareMaps(final Map<String, Object> beforeMap,
+    public static List<DiffEntry> compareMaps(final Map<String, Object> beforeMap,
                                                final Map<String, Object> afterMap) {
         List<DiffEntry> compareResult = new ArrayList<>();
         Set<String> allKeys = new TreeSet<>(beforeMap.keySet());
