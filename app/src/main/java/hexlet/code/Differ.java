@@ -19,6 +19,13 @@ public final class Differ {
     private Differ() {
 
     }
+    
+    public static String generate(
+        final String filePath1,
+        final String filePath2
+    ) throws IOException {
+        return generate(filePath1, filePath2, "stylish");
+    }
 
     public static String generate(
             final String filePath1,
