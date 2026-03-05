@@ -1,7 +1,9 @@
-package hexlet.code.diff;
+package hexlet.code;
 
 import hexlet.code.formatter.Formatter;
 import hexlet.code.formatter.FormatterFactory;
+import hexlet.code.diff.DiffEntry;
+import hexlet.code.diff.ActionType;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +20,7 @@ public final class Differ {
 
     }
 
-    public static String generateDiffString(
+    public static String generate(
             final String filePath1,
             final String filePath2,
             final String format

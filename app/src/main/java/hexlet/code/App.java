@@ -2,7 +2,6 @@ package hexlet.code;
 
 import java.util.concurrent.Callable;
 
-import hexlet.code.diff.Differ;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Option;
@@ -48,7 +47,7 @@ public final class App implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
-        String diff = Differ.generateDiffString(filePath1, filePath2, outputFormat);
+        String diff = Differ.generate(filePath1, filePath2, outputFormat);
         System.out.println(diff);
         return CommandLine.ExitCode.OK;
     }
