@@ -13,4 +13,4 @@ jobs:
 
       - name: Clean up directory
         run: |
-          rm -rf project/src/test/java/hexlet/project/*
+          rm -rf /project/src/test/java/hexlet/project/*
