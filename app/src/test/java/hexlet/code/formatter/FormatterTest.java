@@ -34,7 +34,9 @@ public final class FormatterTest {
     }
 
     private static List<Arguments> provideArguments() {
-        int[] fileNumbers = IntStream.rangeClosed(1, 3).toArray();
+        final int lowerBound = 1;
+        final int upperBound = 3;
+        int[] fileNumbers = IntStream.rangeClosed(lowerBound, upperBound).toArray();
         List<String> allowedFormats = List.of("stylish", "plain", "json");
         List<Arguments> result = new ArrayList<>();
         for (String format: allowedFormats) {
