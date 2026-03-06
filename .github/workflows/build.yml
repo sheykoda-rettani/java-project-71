@@ -31,8 +31,10 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
-      - name: Make gradlew executable
-        run: chmod +x ./app/gradlew
+      - name: Run CheckStyle on main code
+        run : ./app/gradlew checkStyleMain --info
+      - name: Run CheckStyle on test code
+        run : ./app/gradlew checkStyleTest --info
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
