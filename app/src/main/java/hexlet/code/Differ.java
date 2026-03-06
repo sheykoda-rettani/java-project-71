@@ -19,7 +19,7 @@ public final class Differ {
     private Differ() {
 
     }
-    
+
     public static String generate(
         final String filePath1,
         final String filePath2

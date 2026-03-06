@@ -28,17 +28,21 @@ public final class ParserTest {
     }
 
     private Map<String, Object> generateExpectedMap() {
+        final int setting2 = 300;
+        final List<Integer> numbers1 = List.of(1, 2, 3, 4);
+        final List<Integer> numbers2 = List.of(22, 33, 44, 55);
+        final List<Integer> numbers4 = List.of(4, 5, 6);
         Map<String, Object> expectedMap = new HashMap<>();
         expectedMap.put("setting1", "Another value");
-        expectedMap.put("setting2", 300);
+        expectedMap.put("setting2", setting2);
         expectedMap.put("setting3", "none");
         expectedMap.put("key2", "value2");
-        expectedMap.put("numbers1", List.of(1, 2, 3, 4));
-        expectedMap.put("numbers2", List.of(22, 33, 44, 55));
+        expectedMap.put("numbers1", numbers1);
+        expectedMap.put("numbers2", numbers2);
         expectedMap.put("id", null);
         expectedMap.put("default", List.of("value1", "value2"));
         expectedMap.put("checked", true);
-        expectedMap.put("numbers4", List.of(4, 5, 6));
+        expectedMap.put("numbers4", numbers4);
         expectedMap.put("chars1", List.of("a", "b", "c"));
         expectedMap.put("chars2", false);
         expectedMap.put("obj1", Map.of("nestedKey", "value", "isNested", true));

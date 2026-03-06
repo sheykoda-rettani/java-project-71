@@ -50,7 +50,7 @@ public final class PlainFormatter implements Formatter {
             return "[complex value]";
         }
         if (value instanceof String) {
-            return  "'%s'".formatted( value);
+            return  "'%s'".formatted(value);
         }
         return String.valueOf(value);
     }
