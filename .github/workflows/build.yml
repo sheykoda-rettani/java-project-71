@@ -32,9 +32,9 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
       - name: Run CheckStyle on main code
-        run : ./app/gradlew checkStyleMain --info
+        run : ./app/gradlew checkStyleMain -p ./app --info
       - name: Run CheckStyle on test code
-        run : ./app/gradlew checkStyleTest --info
+        run : ./app/gradlew checkStyleTest -p ./app --info
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
