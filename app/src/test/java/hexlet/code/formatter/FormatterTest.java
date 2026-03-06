@@ -29,7 +29,7 @@ public final class FormatterTest {
         String afterPath = "%s/after_%d.json".formatted(RESOURCES_DIR, fileNumber);
         String expectedOutputPath = "%s/expected_output_%s_%d.txt".formatted(RESOURCES_DIR, format, fileNumber);
         String expectedOutput = Files.readString(Path.of(expectedOutputPath));
-        String actualOutput = Differ.generateDiffString(beforePath, afterPath, format);
+        String actualOutput = Differ.generate(beforePath, afterPath, format);
         assertEquals(expectedOutput, actualOutput);
     }
 
