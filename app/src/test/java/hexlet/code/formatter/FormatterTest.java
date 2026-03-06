@@ -1,6 +1,6 @@
 package hexlet.code.formatter;
 
-import hexlet.code.diff.Differ;
+import hexlet.code.Differ;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
