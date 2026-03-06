@@ -49,6 +49,9 @@ public final class PlainFormatter implements Formatter {
         if (isComplexObject(value)) {
             return "[complex value]";
         }
+        if (value instanceof String) {
+            return  formatted("'%s'", value)
+        }
         return String.valueOf(value);
     }
 
