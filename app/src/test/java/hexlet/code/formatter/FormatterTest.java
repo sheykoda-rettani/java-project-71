@@ -22,8 +22,12 @@ public final class FormatterTest {
      */
     private static final String RESOURCES_DIR = "src/test/resources";
 
+    //void testDefault()
+
+    void testOutput(final String fileNumber, final String fileExt) { }
+
     @ParameterizedTest(name = "{index}: Test with format={0}, file number={1}")
-    @MethodSource("provideArguments")
+    @MethodSource("provideArguments2")
     void testOutput(final String format, final int fileNumber) throws IOException {
         String beforePath = "%s/before_%d.json".formatted(RESOURCES_DIR, fileNumber);
         String afterPath = "%s/after_%d.json".formatted(RESOURCES_DIR, fileNumber);
@@ -33,7 +37,7 @@ public final class FormatterTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
-    private static List<Arguments> provideArguments() {
+    private static List<Arguments> provideArguments2() {
         final int lowerBound = 1;
         final int upperBound = 3;
         int[] fileNumbers = IntStream.rangeClosed(lowerBound, upperBound).toArray();
@@ -45,6 +49,24 @@ public final class FormatterTest {
             }
         }
 
+        return result;
+    }
+
+    /**
+     * Генерирует тестовые данные
+     * @return Набор тестовых данных (2 типа файлов и 4 вида "вывода", один из которых пустой)
+     */
+    private static List<Arguments> provideArguments() {
+        final List<String> extensions = List.of("json", "yml");
+        final List<String> allowedFormats = new ArrayList<>();
+        allowedFormats.add(null);
+        allowedFormats.addAll(List.of("stylish", "plain", "json"));
+        List<Arguments> result = new ArrayList<>();
+        for (String extension: extensions) {
+            for (String format: allowedFormats) {
+                result.add(Arguments.of(extension, format));
+            }
+        }
         return result;
     }
 }
