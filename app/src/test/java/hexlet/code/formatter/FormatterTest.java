@@ -23,15 +23,15 @@ public final class FormatterTest {
     private static final String RESOURCES_DIR = "src/test/resources";
 
     /**
-     * Разрешения с которыми умеет работать программа
+     * Разрешения с которыми умеет работать программа.
      */
     private static final List<String> EXTENSIONS = List.of("json", "yml");
 
+    /**
+     * Допустимые форматы вывода.
+     */
     private static final List<String> FORMATS = List.of("stylish", "plain", "json");
 
-    /**
-     * Проверка поведения по умолчанию, без аргументов. Ожидается, что вывод такой же как у stylish
-     */
     @ParameterizedTest(name = "{index}: Testing default with extension={0}")
     @MethodSource("argumentsDefault")
     void testDefault(final String extension) throws IOException {
@@ -43,9 +43,6 @@ public final class FormatterTest {
         assertEquals(expectedOutput, actualOutput);
     }
 
-    /**
-     * Проверка обычных запусков Differ
-     */
     @ParameterizedTest(name = "{index}: Testing parametrized with extension={0} an format={1}")
     @MethodSource("argumentsParametrized")
     void testParametrized(final String extension, final String format) throws IOException {
@@ -63,8 +60,8 @@ public final class FormatterTest {
 
     private static List<Arguments> argumentsParametrized() {
         List<Arguments> result = new ArrayList<>();
-        for(String extension : EXTENSIONS) {
-            for(String format : FORMATS) {
+        for (String extension : EXTENSIONS) {
+            for (String format : FORMATS) {
                 result.add(Arguments.of(extension, format));
             }
         }

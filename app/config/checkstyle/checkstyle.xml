@@ -43,7 +43,6 @@
         <module name="TrailingComment"/>
         <module name="SingleSpaceSeparator"/>
         <module name="ModifierOrder"/>
-        <module name="MultipleStringLiterals"/>
         <module name="VisibilityModifier"/>
         <module name="FinalParameters"/>
         <module name="CyclomaticComplexity"/>
