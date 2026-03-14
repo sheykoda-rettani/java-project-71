@@ -12,17 +12,14 @@ public final class Parser {
 
     }
 
-    public static Map<String, Object> toKeyValuePairs(final FileData fileData) throws IOException {
-        try {
-            ObjectMapper objectMapper = determineMapper(fileData.fileKind());
-            return objectMapper.readValue(fileData.fileText(), new TypeReference<>() { });
-        } catch (IOException | UnsupportedOperationException e) {
-            throw new IOException("Error while parsing fileText: %s".formatted(fileData), e);
-        }
+    public static Map<String, Object> toKeyValuePairs(final ExtractedData extractedData) throws IOException {
+        ObjectMapper objectMapper = determineMapper(extractedData.dataKind());
+        return objectMapper.readValue(extractedData.rawText(), new TypeReference<>() {
+        });
     }
 
-    private static ObjectMapper determineMapper(final FileKind fileKind) {
-        return switch (fileKind) {
+    private static ObjectMapper determineMapper(final DataKind dataKind) {
+        return switch (dataKind) {
             case YAML -> new YAMLMapper();
             case JSON -> new ObjectMapper();
         };

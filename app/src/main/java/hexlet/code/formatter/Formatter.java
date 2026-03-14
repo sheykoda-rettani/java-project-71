@@ -12,5 +12,5 @@ public interface Formatter {
      * @throws IllegalArgumentException если аргумент некорректен
      * @throws IllegalStateException если состояние системы неверно
      */
-    String format(List<DiffEntry> compareResults);
+    String format(List<DiffEntry> compareResults) throws Exception;
 }

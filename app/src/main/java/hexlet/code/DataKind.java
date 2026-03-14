@@ -3,7 +3,7 @@ package hexlet.code;
 import java.util.HashSet;
 import java.util.Set;
 
-public enum FileKind {
+public enum DataKind {
     JSON(".json"),
     YAML(".yaml", ".yml");
 
@@ -17,7 +17,7 @@ public enum FileKind {
      */
     private final Set<String> allExtensions;
 
-    FileKind(final String... extensions) {
+    DataKind(final String... extensions) {
         this.primaryExtension = extensions[0];
         this.allExtensions = new HashSet<>(Set.of(extensions));
     }
@@ -41,14 +41,14 @@ public enum FileKind {
      * @return Элемент FileKind
      * @throws IllegalArgumentException если расширение не поддерживается
      */
-    public static FileKind forExtString(final String ext) {
+    public static DataKind forExtString(final String ext) {
         if (ext == null || ext.trim().isEmpty()) {
             throw new IllegalArgumentException("Строка расширения должна быть задана.");
         }
 
         String normalizedExt = ext.trim().toLowerCase();
 
-        for (FileKind kind : values()) {
+        for (DataKind kind : values()) {
             if (kind.isSupported(normalizedExt)) {
                 return kind;
             }

@@ -26,7 +26,7 @@ public final class Differ {
     public static String generate(
         final String filePath1,
         final String filePath2
-    ) throws IOException {
+    ) throws Exception {
         return generate(filePath1, filePath2, "stylish");
     }
 
@@ -34,10 +34,10 @@ public final class Differ {
             final String filePath1,
             final String filePath2,
             final String format
-    ) throws IOException {
-        FileData beforeData = extractData(filePath1);
+    ) throws Exception {
+        ExtractedData beforeData = extractData(filePath1);
         Map<String, Object> beforeMap = toKeyValuePairs(beforeData);
-        FileData afterData = extractData(filePath2);
+        ExtractedData afterData = extractData(filePath2);
         Map<String, Object> afterMap = toKeyValuePairs(afterData);
         List<DiffEntry> compareResults = findDiff(beforeMap, afterMap);
         Formatter formatter = FormatterFactory.createFormatter(format);
@@ -52,7 +52,7 @@ public final class Differ {
      * @throws IOException в случае проблем с доступом к файлу
      * @throws IllegalArgumentException если расширение файла не поддерживается
      */
-    public static FileData extractData(final String filename) throws IOException, IllegalArgumentException {
+    public static ExtractedData extractData(final String filename) throws IOException, IllegalArgumentException {
         if (filename == null || filename.isEmpty()) {
             throw new IllegalArgumentException(FILE_NAME_NOT_NULL_OR_EMPTY);
         }
@@ -65,12 +65,12 @@ public final class Differ {
         byte[] contentBytes = Files.readAllBytes(path);
         String fileText = new String(contentBytes, StandardCharsets.UTF_8);
 
-        FileKind fileKind = extractFileKind(filename);
+        DataKind dataKind = extractFileKind(filename);
 
-        return new FileData(fileText, fileKind);
+        return new ExtractedData(fileText, dataKind);
     }
 
-    public static FileKind extractFileKind(final String filename) throws IllegalArgumentException {
+    public static DataKind extractFileKind(final String filename) throws IllegalArgumentException {
         if (filename == null || filename.isEmpty()) {
             throw new IllegalArgumentException(FILE_NAME_NOT_NULL_OR_EMPTY);
         }
@@ -82,6 +82,6 @@ public final class Differ {
         }
 
         String fileExtension = filename.substring(lastDotIndex).toLowerCase();
-        return FileKind.forExtString(fileExtension);
+        return DataKind.forExtString(fileExtension);
     }
 }

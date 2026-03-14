@@ -5,7 +5,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -34,7 +33,7 @@ public final class FormatterTest {
 
     @ParameterizedTest(name = "{index}: Testing default with extension={0}")
     @MethodSource("argumentsDefault")
-    void testDefault(final String extension) throws IOException {
+    void testDefault(final String extension) throws Exception {
         String beforePath = "%s/before.%s".formatted(RESOURCES_DIR, extension);
         String afterPath = "%s/after.%s".formatted(RESOURCES_DIR, extension);
         String expectedOutputPath = "%s/expected_output_stylish.txt".formatted(RESOURCES_DIR);
@@ -45,7 +44,7 @@ public final class FormatterTest {
 
     @ParameterizedTest(name = "{index}: Testing parametrized with extension={0} an format={1}")
     @MethodSource("argumentsParametrized")
-    void testParametrized(final String extension, final String format) throws IOException {
+    void testParametrized(final String extension, final String format) throws Exception {
         String beforePath = "%s/before.%s".formatted(RESOURCES_DIR, extension);
         String afterPath = "%s/after.%s".formatted(RESOURCES_DIR, extension);
         String expectedOutputPath = "%s/expected_output_%s.txt".formatted(RESOURCES_DIR, format);
