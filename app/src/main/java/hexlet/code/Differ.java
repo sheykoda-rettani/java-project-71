@@ -62,8 +62,7 @@ public final class Differ {
             throw new IllegalArgumentException("The specified file does not exist: %s".formatted(filename));
         }
 
-        byte[] contentBytes = Files.readAllBytes(path);
-        String fileText = new String(contentBytes, StandardCharsets.UTF_8);
+        String fileText = Files.readString(path):
 
         DataKind dataKind = extractFileKind(filename);
 

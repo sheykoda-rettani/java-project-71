@@ -54,6 +54,6 @@ public enum DataKind {
             }
         }
 
-        throw new IllegalArgumentException("Расширение '%s' не поддерживается.".formatted(ext));
+        return null;
     }
 }
