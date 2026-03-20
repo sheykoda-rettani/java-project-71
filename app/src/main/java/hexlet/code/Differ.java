@@ -20,11 +20,12 @@ public final class Differ {
      */
     public static final String FILE_NAME_NOT_NULL_OR_EMPTY = "File name shouldn't be null or empty.";
 
-    private Differ() { }
+    private Differ() {
+    }
 
     public static String generate(
-        final String filePath1,
-        final String filePath2
+            final String filePath1,
+            final String filePath2
     ) throws Exception {
         return generate(filePath1, filePath2, "stylish");
     }
@@ -48,7 +49,7 @@ public final class Differ {
      *
      * @param filename Абсолютный или относительный путь к файлу
      * @return Экземпляр FileData с текстом файла и типом
-     * @throws IOException в случае проблем с доступом к файлу
+     * @throws IOException              в случае проблем с доступом к файлу
      * @throws IllegalArgumentException если расширение файла не поддерживается
      */
     public static ExtractedData extractData(final String filename) throws IOException, IllegalArgumentException {
