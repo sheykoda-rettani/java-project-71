@@ -62,7 +62,7 @@ public final class Differ {
             throw new IllegalArgumentException("The specified file does not exist: %s".formatted(filename));
         }
 
-        String fileText = Files.readString(path):
+        String fileText = Files.readString(path);
 
         DataKind dataKind = extractFileKind(filename);
 

@@ -23,7 +23,7 @@ public final class Parser {
             case YAML -> new YAMLMapper();
             case JSON -> new ObjectMapper();
             default -> 
-            throw new IllegalArgumentException("Тип данных '%s' не поддерживается".formatted (dataKind);
+            throw new IllegalArgumentException("Тип данных '%s' не поддерживается".formatted(dataKind));
         };
     }
 }
